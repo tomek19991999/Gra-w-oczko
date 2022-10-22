@@ -112,9 +112,16 @@ void Kasyno::graj() {
 			tablicaGraczy[x - 1]->wezKarte(dajKarte());
 		}
 		//TWORZENIE BOTOW
+		int trybBotow = 0;
+		wcout << "Podaj tryb botow (1-ryzykujacy, 2-normalny, 3-zachowawaczy): ";
+		do {
+			cin >> trybBotow;
+			if (trybBotow < 1 || trybBotow>3) wcout << "\nPodaj poprawna liczbe!: ";
+			cin.clear(); //kasowanie flagi b³êdu strumienia
+			cin.ignore(5000, '\n');
+		} while (trybBotow < 1 || trybBotow>3);
 		for (int x = 1; x <= temp_ilosc_botow; x++) {
-			wcout << "\nnazwa dla gracza nr." << x << " (max. 20 znakow): ";
-			dodajBota();
+			dodajBota(trybBotow);
 			tablicaBotow[x - 1]->wezKarte(dajKarte());
 			tablicaBotow[x - 1]->wezKarte(dajKarte());
 		}
@@ -140,7 +147,26 @@ void Kasyno::graj() {
 				}
 			}
 		} while (ilePass != iloscGraczy);
+		//------------------------------------------------------------------------- BOT TIME
+		ilePass = 0;
+		do {	//petla rozgrywki bota
 
+			for (int x = 0; x < iloscBotow; x++) {
+				if (tablicaBotow[x]->zwrocPass() == false) {
+					wcout << "\nBot o nazwie: " << tablicaBotow[x]->zwroc_nick() << ": " << endl;
+					tablicaBotow[x]->pokazReke();
+					tablicaBotow[x]->czyPass();
+					if (tablicaBotow[x]->zwrocPass() == false) {
+						tablicaBotow[x]->wezKarte(dajKarte());
+						tablicaBotow[x]->pokazReke();
+					}
+					else ilePass++;
+					system("Pause");
+					system("cls");
+				}
+			}
+		} while (ilePass != iloscBotow);
+		//------------------------------------------------------------------------- BOT TIME
 		system("cls");
 		znalezenieZwyciezcy();	//sprawdzenie wynikow gry i znalezienie zwyciezcy
 		system("Pause");
@@ -195,25 +221,25 @@ void Kasyno::dodajGracza()
 		
 }
 
-void Kasyno::dodajBota()
+void Kasyno::dodajBota(int trybBotow)
 {	
 	if (iloscBotow == 0) {
 		iloscBotow++;
-		tablicaBotow = new Gracz * [iloscBotow];
-		tablicaBotow[0] = new Gracz(*this);
+		tablicaBotow = new Bot * [iloscBotow];
+		tablicaBotow[0] = new Bot(*this,iloscBotow,trybBotow);
 	}
 	else {
-		Gracz** temptablicaBotow = new Gracz * [iloscBotow];
+		Bot** temptablicaBotow = new Bot * [iloscBotow];
 		for (int x = 0; x < iloscBotow; x++) {
 			temptablicaBotow[x] = tablicaBotow[x];
 		}
 		delete[] tablicaBotow;
 		iloscBotow++;
-		tablicaBotow = new Gracz * [iloscBotow];
+		tablicaBotow = new Bot * [iloscBotow];
 		for (int x = 0; x < iloscBotow - 1; x++) {
 			tablicaBotow[x] = temptablicaBotow[x];
 		}
-		tablicaBotow[iloscBotow - 1] = new Gracz(*this);
+		tablicaBotow[iloscBotow - 1] = new Bot(*this,iloscBotow,trybBotow);
 	}
 }
 
@@ -306,7 +332,7 @@ void Kasyno::zapisz_wyniki() {
 	ofstream plik_z_wynikami;
 
 	do {
-		wcout << "Czy chcesz zapisac wyniki na przyszlosc?\n1 - Tak, bardzo chetnie\n2 - Nie, dziekuje" << endl;
+		wcout << "Czy chcesz zapisac wyniki na przyszlosc?\n1 - Tak, bardzo chetnie\n0 - Nie, dziekuje" << endl;
 		cin >> x;
 		if (cin.fail()) {
 			cin.clear();
@@ -347,7 +373,7 @@ void Kasyno::zapisz_wyniki() {
 			wcout << "Plik zapisany" << endl;
 
 			break;
-		case 2:
+		case 0:
 			wcout << "Plik nie zostal zapisany" << endl;
 			break;
 
@@ -357,32 +383,4 @@ void Kasyno::zapisz_wyniki() {
 	system("Pause");
 	system("cls");
 }
-
-
-
-
-//void Kasyno::dodajGracza(Gracz& _gracz)
-//{	
-//	if (iloscGraczy == 0) {
-//		iloscGraczy++;
-//		tablicaGraczy = new Gracz*[iloscGraczy];
-//		tablicaGraczy[0] = &_gracz;
-//	}
-//	else {
-//		Gracz **tempGracz;
-//		tempGracz = new Gracz*[iloscGraczy];
-//		for (int x = 0; x < iloscGraczy; x++) {
-//			tempGracz[x] = tablicaGraczy[x];
-//		}
-//		delete[] tablicaGraczy;
-//		iloscGraczy++;
-//		tablicaGraczy = new Gracz[iloscGraczy];
-//		for (int x = 0; x < iloscGraczy-1; x++) {
-//			tablicaGraczy[x] = tempGracz[x];
-//		}
-//		tablicaGraczy[iloscGraczy - 1] = _gracz;
-//	}
-//		
-//}
-
 

@@ -1,13 +1,14 @@
 #pragma once
 #include "Karta.h"
 #include "Gracz.h"
+#include "Bot.h"
 
 class Kasyno
 {
 private:
 	Karta talia[52];
 	Gracz **tablicaGraczy;
-	Gracz** tablicaBotow;
+	Bot** tablicaBotow;
 	Gracz* wygrany;
 	int iloscGraczy;
 	int iloscBotow;
@@ -21,7 +22,7 @@ public:
 	void graj();
 	Karta* dajKarte();
 	void dodajGracza();
-	void dodajBota();
+	void dodajBota(int trybBotow);
 	void znalezenieZwyciezcy();
 	void usun_graczy();
 	void reset();

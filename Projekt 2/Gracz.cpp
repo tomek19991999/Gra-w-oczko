@@ -10,7 +10,7 @@ Gracz::Gracz() {
 	kasynoWsk = nullptr;
 	ileKart = 0;
 	sumaPunktow = 0;
-	pass = 0;
+	pass = false;
 	//wcout << "\naktywacja konstruktor Gracza";
 }
 Gracz::Gracz(Kasyno& _kasyno) {
@@ -77,7 +77,7 @@ void Gracz::pokazReke() {
 	wcout << endl << "ilosc kart: " << ileKart << "\t\tilosc punktow: " << sumaPunktow<<endl;
 
 }
-bool Gracz::czyPass()
+void Gracz::czyPass()
 {	
 	if (sumaPunktow >= 20) {
 		pass = true;
@@ -95,7 +95,6 @@ bool Gracz::czyPass()
 		} while (x < 0 || x>1);
 		if(x==0)pass = true;
 	}
-	return pass;
 }
 void Gracz::nadajNazwe()
 {
