@@ -17,4 +17,5 @@ public:
 	char getFigura() const { return figura; }
 	int getWartosc() const { return wartosc; }
 	void wypisz();
+	friend wostream& operator<<(wostream& os, const Karta& dt);
 };

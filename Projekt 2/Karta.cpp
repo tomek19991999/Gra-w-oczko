@@ -23,7 +23,7 @@ void Karta::setWartosc(int _wartosc) {
 }
 
 void Karta::wypisz() {
-	wcout << endl << "Figura:" << figura << "      Kolor:";
+	wcout << endl << "Figura:" << figura << "\t\tKolor:";
 	switch (kolor) {
 	case 3:
 		wcout << L"\u2665" << "  ";
@@ -38,4 +38,24 @@ void Karta::wypisz() {
 		wcout << L"\u2660" << "  ";
 		break;
 	}
+}
+
+wostream& operator<<(wostream& os, const Karta& karta)
+{	
+	switch (karta.getKolor()) {
+	case 3:
+		os << "Figura: " << karta.getFigura() << "\tKolor: " << "Kier";
+		break;
+	case 4:
+		os << "Figura: " << karta.getFigura() << "\tKolor: " << "Karo";
+		break;
+	case 5:
+		os << "Figura: " << karta.getFigura() << "\tKolor: " << "Treft";
+		break;
+	case 6:
+		os << "Figura: " << karta.getFigura() << "\tKolor: " << "Pik";
+		break;
+	}
+
+	return os;
 }

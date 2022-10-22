@@ -1,0 +1,5 @@
+Wyniki gry w Oczko:
+
+Nazwa:		Punkty:		Karty:
+112		26		Q Pik	9 Kier	3 Karo	3 Kier	8 Karo	
+12		27		4 Trefl	4 Pik	J Karo	5 Trefl	2 Trefl	D Trefl	
