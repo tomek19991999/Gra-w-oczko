@@ -18,7 +18,7 @@ public:
 	~Gracz();
 	void wezKarte(Karta* _karta);
 	void pokazReke();
-	void czyPass(); //zwraca 1 lub 0, w zaleznosci czy pass
+	virtual void czyPass(); //zwraca 1 lub 0, w zaleznosci czy pass
 	void nadajNazwe(); //funcja nadajaca nazwe graczowi
 	char *zwroc_nick();
 	bool zwrocPass();

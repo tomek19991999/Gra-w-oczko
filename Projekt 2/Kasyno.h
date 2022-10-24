@@ -8,7 +8,7 @@ class Kasyno
 private:
 	Karta talia[52];
 	Gracz **tablicaGraczy;
-	Bot** tablicaBotow;
+		//Bot** tablicaBotow;
 	Gracz* wygrany;
 	int iloscGraczy;
 	int iloscBotow;
@@ -27,4 +27,5 @@ public:
 	void usun_graczy();
 	void reset();
 	void zapisz_wyniki();
+	void tworzenieGraczy();
 };
